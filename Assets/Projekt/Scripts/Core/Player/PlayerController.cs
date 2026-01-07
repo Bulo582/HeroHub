@@ -1,3 +1,4 @@
+using Assets.Projekt.Scripts.Core.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,11 +46,7 @@ public class PlayerController : MonoBehaviour
         get { return currentStamina / maxStamina; }
     }
 
-    enum PlayerState
-    {
-        Normal,
-        Rolling
-    }
+
     private PlayerState currentState = PlayerState.Normal;
 
     private void Awake()
