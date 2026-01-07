@@ -24,6 +24,17 @@ public class PlayerController : MonoBehaviour
     private bool isInvulnerable;
     private bool perfectDodgeActive;
 
+    [Header("Stamina")]
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float staminaRegenRate = 20f;
+    [SerializeField] private float staminaRegenDelay = 0.5f;
+
+    [SerializeField] private float rollStaminaCost = 25f;
+    [SerializeField] private float attackStaminaCost = 15f; // na przysz³oœæ
+
+    private float currentStamina;
+    private float staminaRegenTimer;
+
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
@@ -39,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        currentStamina = maxStamina;
 
         inputActions = new PlayerInputActions();
         inputActions.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
@@ -66,10 +78,27 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.tKey.wasPressedThisFrame)
+        HandleStaminaRegen();
+
+        if (Keyboard.current.yKey.wasPressedThisFrame)
         {
-            TryTakeHit();
+            Debug.Log($"Stamina: {currentStamina}");
         }
+    }
+
+    private void HandleStaminaRegen()
+    {
+        if (currentStamina >= maxStamina)
+            return;
+
+        if (staminaRegenTimer > 0f)
+        {
+            staminaRegenTimer -= Time.deltaTime;
+            return;
+        }
+
+        currentStamina += staminaRegenRate * Time.deltaTime;
+        currentStamina = Mathf.Min(currentStamina, maxStamina);
     }
 
     private void TryRoll()
@@ -77,6 +106,10 @@ public class PlayerController : MonoBehaviour
         if (!canRoll) return;
         if (currentState == PlayerState.Rolling) return;
         if (moveInput == Vector2.zero) return;
+        if (currentStamina < rollStaminaCost) return;
+
+        currentStamina -= rollStaminaCost;
+        staminaRegenTimer = staminaRegenDelay;
 
         StartCoroutine(RollCoroutine());
     }
