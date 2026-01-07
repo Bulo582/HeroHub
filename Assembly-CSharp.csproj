@@ -61,9 +61,12 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Projekt\UI\Player\StaminaBarUI.cs" />
-    <Compile Include="Assets\Projekt\Scripts\Camera\CameraFollow.cs" />
     <Compile Include="Assets\Projekt\Scripts\Input\PlayerInputActions.cs" />
+    <Compile Include="Assets\Projekt\Scripts\System\Auras\AuraController.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Camera\CameraFollow.cs" />
+    <Compile Include="Assets\Projekt\Scripts\System\Auras\IAura.cs" />
+    <Compile Include="Assets\Projekt\Scripts\System\Auras\MomentumAura.cs" />
+    <Compile Include="Assets\Projekt\UI\Player\StaminaBarUI.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerController.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerState.cs" />
   </ItemGroup>
@@ -1078,19 +1081,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Projekt\Scripts\Enemies\" />
-    <Folder Include="Assets\Projekt\Scripts\System\Auras\" />
-    <Folder Include="Assets\Projekt\Scripts\System\Combat\" />
-    <Folder Include="Assets\Projekt\Scripts\System\Stamina\" />
-    <Folder Include="Assets\Projekt\Scripts\Utils\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Projekt\Scenes\Gameplay.unity" />
-    <None Include="Assets\Projekt\Scenes\Gameplay.unity.meta" />
-    <None Include="Assets\Projekt\Scripts\System\Auras.meta" />
-    <None Include="Assets\Projekt\Scripts\System\Combat.meta" />
-    <None Include="Assets\Projekt\Scripts\System\Stamina.meta" />
-    <None Include="Assets\Projekt\UI\Player.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

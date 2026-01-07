@@ -45,7 +45,16 @@ public class PlayerController : MonoBehaviour
     {
         get { return currentStamina / maxStamina; }
     }
+    public bool CanSpendStamina(float amount)
+    {
+        return currentStamina >= amount;
+    }
 
+    public void SpendStamina(float amount)
+    {
+        currentStamina -= amount;
+        staminaRegenTimer = staminaRegenDelay;
+    }
 
     private PlayerState currentState = PlayerState.Normal;
 
@@ -108,10 +117,9 @@ public class PlayerController : MonoBehaviour
         if (!canRoll) return;
         if (currentState == PlayerState.Rolling) return;
         if (moveInput == Vector2.zero) return;
-        if (currentStamina < rollStaminaCost) return;
+        if (!CanSpendStamina(rollStaminaCost)) return;
 
-        currentStamina -= rollStaminaCost;
-        staminaRegenTimer = staminaRegenDelay;
+        SpendStamina(rollStaminaCost);
 
         StartCoroutine(RollCoroutine());
     }
