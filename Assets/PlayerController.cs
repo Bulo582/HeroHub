@@ -40,6 +40,11 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInputActions inputActions;
 
+    public float StaminaNormalized
+    {
+        get { return currentStamina / maxStamina; }
+    }
+
     enum PlayerState
     {
         Normal,
