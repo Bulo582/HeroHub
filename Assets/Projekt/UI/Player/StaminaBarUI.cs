@@ -11,6 +11,6 @@ public class StaminaBarUI : MonoBehaviour
         if (player == null || fillImage == null)
             return;
 
-        fillImage.fillAmount = player.StaminaNormalized;
+        fillImage.fillAmount = player.Stamina.Normalized;
     }
 }

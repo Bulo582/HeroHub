@@ -1,4 +1,5 @@
 using Assets.Projekt.Scripts.Core.Player;
+using Assets.Projekt.Scripts.System.Auras;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,170 +8,62 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public System.Action OnPerfectDodge;
+    [SerializeField] private AuraController auraController;
 
-    [Header("Movement")]
-    [SerializeField] private float moveSpeed = 6f;
+    private PlayerMovement movement;
+    private PlayerStamina stamina;
+    private PlayerRoll roll;
 
-    [Header("Roll")]
-    [SerializeField] private float rollSpeed = 14f;
-    [SerializeField] private float rollDuration = 0.25f;
-    [SerializeField] private float rollCooldown = 0.5f;
-    private bool canRoll = true;
-
-    [Header("I-Frames")]
-    [SerializeField] private float invulnerableTime = 0.18f;
-    [SerializeField] private float perfectDodgeWindow = 0.08f;
-
-    private bool isInvulnerable;
-    private bool perfectDodgeActive;
-
-    [Header("Stamina")]
-    [SerializeField] private float maxStamina = 100f;
-    [SerializeField] private float staminaRegenRate = 20f;
-    [SerializeField] private float staminaRegenDelay = 0.5f;
-
-    [SerializeField] private float rollStaminaCost = 25f;
-    [SerializeField] private float attackStaminaCost = 15f; // na przysz³oœæ
-
-    private float currentStamina;
-    private float staminaRegenTimer;
-
-    private Rigidbody2D rb;
     private Vector2 moveInput;
+    private PlayerInputActions input;
 
-    private PlayerInputActions inputActions;
-
-    public float StaminaNormalized
-    {
-        get { return currentStamina / maxStamina; }
-    }
-    public bool CanSpendStamina(float amount)
-    {
-        return currentStamina >= amount;
-    }
-
-    public void SpendStamina(float amount)
-    {
-        currentStamina -= amount;
-        staminaRegenTimer = staminaRegenDelay;
-    }
-
-    private PlayerState currentState = PlayerState.Normal;
+    public PlayerStamina Stamina => stamina;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        currentStamina = maxStamina;
+        var rb = GetComponent<Rigidbody2D>();
 
-        inputActions = new PlayerInputActions();
-        inputActions.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        inputActions.Gameplay.Move.canceled += ctx => moveInput = Vector2.zero;
-        inputActions.Gameplay.Roll.performed += _ => TryRoll();
+        movement = new PlayerMovement(rb, 6f);
+        stamina = new PlayerStamina(100f, 20f, 0.5f);
+
+        roll = new PlayerRoll(rb, this, 14f, 0.25f, 0.5f, 0.08f);
+        roll.OnPerfectDodge += () =>
+            auraController.AddAura(new MomentumAura(1f));
+
+        input = new PlayerInputActions();
+        input.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        input.Gameplay.Move.canceled += _ => moveInput = Vector2.zero;
+        input.Gameplay.Roll.performed += _ =>
+        {
+            if (stamina.CanSpend(25f))
+            {
+                stamina.Spend(25f);
+                roll.TryRoll(moveInput);
+            }
+        };
     }
 
     private void OnEnable()
     {
-        inputActions.Enable();
+        input.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions.Disable();
-    }
-
-    private void FixedUpdate()
-    {
-        if (currentState != PlayerState.Normal)
-            return;
-
-        rb.velocity = moveInput * moveSpeed;
+        input.Disable();
     }
 
     private void Update()
     {
-        HandleStaminaRegen();
-
-        if (Keyboard.current.yKey.wasPressedThisFrame)
-        {
-            Debug.Log($"Stamina: {currentStamina}");
-        }
+        stamina.Tick(Time.deltaTime);
     }
 
-    private void HandleStaminaRegen()
+    private void FixedUpdate()
     {
-        if (currentStamina >= maxStamina)
-            return;
-
-        if (staminaRegenTimer > 0f)
+        if (!roll.IsRolling)
         {
-            staminaRegenTimer -= Time.deltaTime;
-            return;
+            movement.Move(moveInput);
         }
-
-        currentStamina += staminaRegenRate * Time.deltaTime;
-        currentStamina = Mathf.Min(currentStamina, maxStamina);
-    }
-
-    private void TryRoll()
-    {
-        if (!canRoll) return;
-        if (currentState == PlayerState.Rolling) return;
-        if (moveInput == Vector2.zero) return;
-        if (!CanSpendStamina(rollStaminaCost)) return;
-
-        SpendStamina(rollStaminaCost);
-
-        StartCoroutine(RollCoroutine());
-    }
-
-    private System.Collections.IEnumerator RollCoroutine()
-    {
-        canRoll = false;
-        currentState = PlayerState.Rolling;
-
-        Vector2 rollDirection = moveInput.normalized;
-
-        // I-frames start
-        isInvulnerable = true;
-        perfectDodgeActive = true;
-
-        // Perfect dodge window
-        yield return new WaitForSeconds(perfectDodgeWindow);
-        perfectDodgeActive = false;
-
-        float timer = 0f;
-        while (timer < rollDuration)
-        {
-            rb.velocity = rollDirection * rollSpeed;
-            timer += Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
-        }
-
-        // I-frames end
-        isInvulnerable = false;
-
-        rb.velocity = Vector2.zero;
-        currentState = PlayerState.Normal;
-
-        yield return new WaitForSeconds(rollCooldown);
-        canRoll = true;
-    }
-
-    public void TryTakeHit()
-    {
-        if (isInvulnerable)
-        {
-            if (perfectDodgeActive)
-            {
-                Debug.Log("PERFECT DODGE!");
-                OnPerfectDodge?.Invoke();
-            }
-
-            return;
-        }
-
-        Debug.Log("PLAYER HIT");
     }
 
 }

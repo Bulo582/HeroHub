@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Projekt.Scripts.System.Auras
 {
-    public internal interface IAura
+    public interface IAura
     {
         void OnApply(PlayerController player);
         void OnRemove(PlayerController player);
