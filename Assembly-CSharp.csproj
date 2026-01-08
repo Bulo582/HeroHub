@@ -63,11 +63,14 @@
     <Compile Include="Assets\Projekt\Scripts\Input\PlayerInputActions.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\MomentumAura.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\AuraController.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerStamina.cs" />
     <Compile Include="Assets\Projekt\Scripts\Camera\CameraFollow.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\IAura.cs" />
     <Compile Include="Assets\Projekt\UI\Player\StaminaBarUI.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Enemies\EnemyHitbox.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Enemies\EnemyAttack.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerController.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerState.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerRoll.cs" />

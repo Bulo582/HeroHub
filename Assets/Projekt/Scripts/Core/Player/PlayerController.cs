@@ -1,4 +1,4 @@
-using Assets.Projekt.Scripts.Core.Player;
+﻿using Assets.Projekt.Scripts.Core.Player;
 using Assets.Projekt.Scripts.System.Auras;
 using System.Collections;
 using System.Collections.Generic;
@@ -64,6 +64,18 @@ public class PlayerController : MonoBehaviour
         {
             movement.Move(moveInput);
         }
+    }
+
+    public void TryTakeHit()
+    {
+        // 1. Sprawdź perfect dodge
+        roll.TryPerfectDodge();
+
+        // 2. Jeśli roll był perfect → NIE dostajesz hita
+        if (roll.IsRolling)
+            return;
+
+        Debug.Log("PLAYER HIT");
     }
 
 }
