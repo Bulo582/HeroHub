@@ -60,15 +60,18 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f3\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Projekt\Scripts\Map\GroundGenerator.cs" />
     <Compile Include="Assets\Projekt\Scripts\Input\PlayerInputActions.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\MomentumAura.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Combat\IDamageable.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Map\PropScatterGenerator.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\AuraController.cs" />
     <Compile Include="Assets\Projekt\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Debug\DebugSettings.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerStamina.cs" />
     <Compile Include="Assets\Projekt\Scripts\Camera\CameraFollow.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Map\MapGenerator.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\IAura.cs" />
     <Compile Include="Assets\Projekt\UI\Player\StaminaBarUI.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Debug\GameDebug.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerState.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerRoll.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Combat\DamageData.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Map\GroundDetailGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

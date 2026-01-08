@@ -3,12 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
@@ -40,4 +41,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2585128215
+    locked: 0
+  - name: Ground_Base
+    uniqueID: 1806379717
+    locked: 0
+  - name: Ground_Details
+    uniqueID: 4086271355
+    locked: 0
+  - name: Props
+    uniqueID: 40396317
+    locked: 0
+  - name: Characters
+    uniqueID: 2865984099
+    locked: 0
+  - name: Effects
+    uniqueID: 288258827
+    locked: 0
+  - name: UI
+    uniqueID: 2905743233
     locked: 0

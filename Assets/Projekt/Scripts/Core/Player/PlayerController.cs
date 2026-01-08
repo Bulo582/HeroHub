@@ -1,6 +1,7 @@
 ﻿using Assets.Projekt.Scripts.Core.Player;
 using Assets.Projekt.Scripts.System.Auras;
 using Assets.Projekt.Scripts.System.Combat;
+using Assets.Projekt.Scripts.System.Debug;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private AuraController auraController;
+    private AuraController auraController;
 
     private PlayerMovement movement;
     private PlayerStamina stamina;
@@ -24,6 +25,12 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         var rb = GetComponent<Rigidbody2D>();
+
+        auraController = GetComponent<AuraController>();
+        if(auraController == null)
+        {
+            GameDebug.LogError("Aura conntroller is not exist in inspector");
+        }
 
         movement = new PlayerMovement(rb, 6f);
         stamina = new PlayerStamina(100f, 20f, 0.5f);
