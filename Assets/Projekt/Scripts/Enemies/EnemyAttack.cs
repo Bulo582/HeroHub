@@ -3,13 +3,23 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private EnemyHitbox hitbox;
     [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private float activeTime = 0.2f;
+    private EnemyHitbox hitbox;
 
     private void Start()
     {
         StartCoroutine(AttackLoop());
+    }
+
+    private void Awake()
+    {
+        hitbox = GetComponentInChildren<EnemyHitbox>();
+
+        if (hitbox == null)
+        {
+            Debug.LogError("EnemyAttack: EnemyHitbox NOT FOUND in children!", this);
+        }
     }
 
     private IEnumerator AttackLoop()

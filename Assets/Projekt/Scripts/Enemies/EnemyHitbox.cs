@@ -10,11 +10,6 @@ public class EnemyHitbox : MonoBehaviour
         col.enabled = false;
     }
 
-    private void Start()
-    {
-        Enable();
-    }
-
     public void Enable() => col.enabled = true;
     public void Disable() => col.enabled = false;
 
