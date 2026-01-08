@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Projekt.Scripts.System.Debug;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
@@ -18,7 +19,7 @@ public class EnemyAttack : MonoBehaviour
 
         if (hitbox == null)
         {
-            Debug.LogError("EnemyAttack: EnemyHitbox NOT FOUND in children!", this);
+            GameDebug.LogError("EnemyAttack: EnemyHitbox NOT FOUND in children!", this);
         }
     }
 

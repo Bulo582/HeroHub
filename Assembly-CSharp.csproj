@@ -71,6 +71,7 @@
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\IAura.cs" />
     <Compile Include="Assets\Projekt\UI\Player\StaminaBarUI.cs" />
+    <Compile Include="Assets\Projekt\Scripts\System\Debug\GameDebug.cs" />
     <Compile Include="Assets\Projekt\Scripts\Enemies\EnemyHitbox.cs" />
     <Compile Include="Assets\Projekt\Scripts\Enemies\EnemyAttack.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerController.cs" />

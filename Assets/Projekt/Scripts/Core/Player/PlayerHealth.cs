@@ -1,4 +1,5 @@
 ﻿using Assets.Projekt.Scripts.System.Combat;
+using Assets.Projekt.Scripts.System.Debug;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Assets.Projekt.Scripts.Core.Player
         public void TakeDamage(DamageData damage)
         {
             CurrentHP -= damage.Amount;
-            Debug.Log($"PLAYER TOOK {damage.Amount} DAMAGE | HP: {CurrentHP}");
+            GameDebug.Log($"PLAYER TOOK {damage.Amount} DAMAGE | HP: {CurrentHP}");
         }
     }
 }
