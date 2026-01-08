@@ -18,7 +18,7 @@ namespace Assets.Projekt.Scripts.System.Auras
 
         public void OnApply(PlayerController player)
         {
-            Debug.Log("Momentum ON");
+            UnityEngine.Debug.Log("Momentum ON");
         }
 
         public void Tick(PlayerController player, float deltaTime)
@@ -33,7 +33,7 @@ namespace Assets.Projekt.Scripts.System.Auras
 
         public void OnRemove(PlayerController player)
         {
-            Debug.Log("Momentum OFF");
+            UnityEngine.Debug.Log("Momentum OFF");
         }
     }
 }
