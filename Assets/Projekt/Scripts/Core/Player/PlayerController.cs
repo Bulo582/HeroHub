@@ -1,5 +1,6 @@
 ﻿using Assets.Projekt.Scripts.Core.Player;
 using Assets.Projekt.Scripts.System.Auras;
+using Assets.Projekt.Scripts.System.Combat;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement movement;
     private PlayerStamina stamina;
     private PlayerRoll roll;
+    private PlayerHealth health;
 
     private Vector2 moveInput;
     private PlayerInputActions input;
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
         movement = new PlayerMovement(rb, 6f);
         stamina = new PlayerStamina(100f, 20f, 0.5f);
+        health = new PlayerHealth(100);
 
         roll = new PlayerRoll(rb, this, 14f, 0.25f, 0.5f, 0.08f);
         roll.OnPerfectDodge += () =>
@@ -68,14 +71,13 @@ public class PlayerController : MonoBehaviour
 
     public void TryTakeHit()
     {
-        // 1. Sprawdź perfect dodge
-        roll.TryPerfectDodge();
-
-        // 2. Jeśli roll był perfect → NIE dostajesz hita
         if (roll.IsRolling)
+        {
+            roll.TryPerfectDodge();
             return;
+        }
 
-        Debug.Log("PLAYER HIT");
+        health.TakeDamage(new DamageData(10));
     }
 
 }

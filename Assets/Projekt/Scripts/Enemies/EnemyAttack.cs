@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private float attackCooldown = 2f;
-    [SerializeField] private float activeTime = 0.2f;
+    [SerializeField] private float activeTime = 3f;
     private EnemyHitbox hitbox;
 
     private void Start()

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Projekt\Scripts\Input\PlayerInputActions.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\MomentumAura.cs" />
+    <Compile Include="Assets\Projekt\Scripts\System\Combat\IDamageable.cs" />
     <Compile Include="Assets\Projekt\Scripts\System\Auras\AuraController.cs" />
     <Compile Include="Assets\Projekt\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerStamina.cs" />
@@ -72,8 +73,10 @@
     <Compile Include="Assets\Projekt\Scripts\Enemies\EnemyHitbox.cs" />
     <Compile Include="Assets\Projekt\Scripts\Enemies\EnemyAttack.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerController.cs" />
+    <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerState.cs" />
     <Compile Include="Assets\Projekt\Scripts\Core\Player\PlayerRoll.cs" />
+    <Compile Include="Assets\Projekt\Scripts\System\Combat\DamageData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
